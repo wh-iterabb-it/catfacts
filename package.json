@@ -53,6 +53,7 @@
     "chai-http": "4.4.0",
     "express": "4.19.2",
     "helmet": "7.1.0",
+    "meowfacts": "file:",
     "sst": "git+https://github.com/wh-iterabb-it/sst.git"
   },
   "devDependencies": {
