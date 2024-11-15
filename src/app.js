@@ -67,9 +67,20 @@ app.get("/", (req, res) => {
   const { lang = null, count, id } = req.query;
 
   try {
-    const data = count 
-      ? facts.getMany(convert.toNumber(count), lang)
-      : [facts.getSingle(id ? convert.toNumber(id) : null, lang)];
+    // Gestione mutualmente esclusiva dei parametri
+    if (count && id) {
+      return res.status(400).json({
+        error: 'Invalid request',
+        message: 'Cannot specify both count and id parameters'
+      });
+    }
+
+    let data;
+    if (count) {
+      data = facts.getMany(convert.toNumber(count), lang);
+    } else {
+      data = [facts.getSingle(id ? convert.toNumber(id) : null, lang)];
+    }
 
     return res.status(200).json({ data });
     
