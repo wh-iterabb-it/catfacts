@@ -64,19 +64,21 @@ logger.info("turning on app...");
  */
 app.get("/", (req, res) => {
   requestsCount++;
-  const lang = req.query.lang || null;
+  const { lang = null, count, id } = req.query;
 
-  if (req.query.count) {
-    const count = convert.toNumber(`${req.query.count}`);
-    return res.status(200).send({ data: facts.getMany(count, lang) });
+  try {
+    const data = count 
+      ? facts.getMany(convert.toNumber(count), lang)
+      : [facts.getSingle(id ? convert.toNumber(id) : null, lang)];
+
+    return res.status(200).json({ data });
+    
+  } catch (error) {
+    return res.status(500).json({ 
+      error: 'Error in fact retrieval',
+      message: error.message 
+    });
   }
-
-  if (req.query.id) {
-    const id = convert.toNumber(`${req.query.id}`);
-    return res.status(200).send({ data: [facts.getSingle(id, lang)] });
-  }
-
-  return res.status(200).send({ data: [facts.getSingle(null, lang)] });
 });
 
 /**
