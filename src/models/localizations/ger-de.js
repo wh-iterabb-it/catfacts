@@ -99,6 +99,7 @@ const facts = [
   "Katzen haben zum Aussterben von 33 verschiedenen Arten beigetragen.",
   "Katzen können Meerwasser trinken, um zu überleben.",
   "Geparden können nicht brüllen wie Großkatzen (z.B. Löwen), sondern miauen und schnurren wie typische Hauskatzen",
+  "80% aller orangefarbenen Katzen sind männlich.",
 ];
 const langName = "german",
   langISO = "ger",
